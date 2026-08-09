@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 1: Personal Identity - ELMISTER IN ENGLISH - Third Prep First Term</title>
+    <title>Unit 1: Who I Am - Grammar: Present Perfect Tense - ELMISTER IN ENGLISH - Third Prep First Term</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -479,7 +479,7 @@
                 <div class="unit-badge">Third Prep - First Term</div>
                 <h1>ELMISTER IN ENGLISH</h1>
                 <h2>Mr. Abdelrahman Elshafie</h2>
-                <h3>Unit 1: Personal Identity - Grammar: Present Perfect (Active & Passive)</h3>
+                <h3>Unit 1: Who I Am - Grammar: Present Perfect Tense</h3>
             </div>
         </div>
         <div class="social-links">
@@ -491,7 +491,7 @@
         <!-- Main Menu -->
         <div id="main-menu" class="screen active">
             <h2>Welcome! Choose a game to start:</h2>
-            <p>Test your knowledge on the Present Perfect Tense (Active & Passive Forms)</p>
+            <p>Test your knowledge on Present Perfect Tense!</p>
             <div class="menu-grid">
                 <div class="game-card" onclick="startGame(1)">
                     <i class="fas fa-list-ul"></i>
@@ -511,7 +511,7 @@
                 </div>
                 <div class="game-card" onclick="startGame(5)">
                     <i class="fas fa-keyboard"></i>
-                    <h3>Rewrite Sentences</h3>
+                    <h3>Correct Sentences</h3>
                 </div>
             </div>
         </div>
@@ -537,7 +537,7 @@
 
             <!-- Game 5 Area (Rewrite) -->
             <div id="rewrite-area" style="display: none; text-align: center;">
-                <p class="rewrite-instruction">Rewrite the sentence using the word in brackets:</p>
+                <p class="rewrite-instruction">Rewrite the sentence correcting the word(s) in brackets:</p>
                 <div id="rewrite-bracket" style="font-size: 1.5rem; color: var(--primary); font-weight: bold; margin-bottom: 30px;"></div>
                 <input type="text" id="rewrite-input" placeholder="Type your answer here..." autocomplete="off">
                 <button id="btn-submit-rewrite" class="btn-back" style="background: var(--primary); box-shadow: 0 4px 0 #064e3b; margin: 20px auto; font-size: 1.3rem; padding: 15px 40px;" onclick="submitRewrite()">Submit</button>
@@ -599,53 +599,47 @@
             }
         }
 
-        // Language questions for Third Prep - First Term, Unit 1: Present Perfect Tense (Active & Passive)
+        // Language questions for Third Prep - First Term, Unit 1: Who I Am: Present Perfect Tense
         const rewriteTemplates = [
-            { q: "I finished my homework a short time ago.", bracket: "just", ans: ["I have just finished my homework", "I have just finished my homework."] },
-            { q: "The mechanic has repaired my car.", bracket: "been", ans: ["My car has been repaired by the mechanic", "My car has been repaired by the mechanic."] },
-            { q: "They didn't go to Alexandria before.", bracket: "never", ans: ["They have never been to Alexandria", "They have never gone to Alexandria", "They've never been to Alexandria."] },
-            { q: "Football has been played by them.", bracket: "They", ans: ["They have played football", "They have played football."] },
-            { q: "She hasn't visited Aswan.", bracket: "yet", ans: ["She hasn't visited Aswan yet", "She has not visited Aswan yet", "She hasn't visited Aswan yet."] },
-            { q: "They have bought a new car.", bracket: "been", ans: ["A new car has been bought by them", "A new car has been bought."] },
-            { q: "He has lived in Cairo since 2020.", bracket: "for", ans: ["He has lived in Cairo for 6 years", "He has lived in Cairo for six years", "He's lived in Cairo for 6 years."] },
-            { q: "Many tourists have visited the museum.", bracket: "been", ans: ["The museum has been visited by many tourists", "The museum has been visited by many tourists."] },
-            { q: "Ali washed the dishes.", bracket: "already", ans: ["Ali has already washed the dishes", "Ali has washed the dishes already."] },
-            { q: "I didn't eat my lunch.", bracket: "yet", ans: ["I haven't eaten my lunch yet", "I have not eaten my lunch yet", "I haven't eaten my lunch yet."] }
+            { q: "She (already/finish) her homework.", bracket: "Correct the mistake / Rewrite", ans: ["She has already finished her homework", "She has already finished her homework."] },
+            { q: "I (never/visit) London.", bracket: "Correct the mistake / Rewrite", ans: ["I have never visited London", "I have never visited London."] },
+            { q: "They (live) here since 2018.", bracket: "Correct the mistake / Rewrite", ans: ["They have lived here since 2018", "They have lived here since 2018."] },
+            { q: "He (not finish) his project yet.", bracket: "Correct the mistake / Rewrite", ans: ["He hasn't finished his project yet", "He has not finished his project yet", "He hasn't finished his project yet."] },
+            { q: "How long (you/study) English?", bracket: "Correct the mistake / Rewrite", ans: ["How long have you studied English?", "How long have you studied English"] },
+            { q: "We (just/finish) the exam.", bracket: "Correct the mistake / Rewrite", ans: ["We have just finished the exam", "We have just finished the exam."] },
+            { q: "She (not call) me yet.", bracket: "Correct the mistake / Rewrite", ans: ["She hasn't called me yet", "She has not called me yet", "She hasn't called me yet."] },
+            { q: "I (read) this book twice.", bracket: "Correct the mistake / Rewrite", ans: ["I have read this book twice", "I have read this book twice."] },
+            { q: "He (lose) his keys.", bracket: "Correct the mistake / Rewrite", ans: ["He has lost his keys", "He has lost his keys."] },
+            { q: "They (not visit) their grandparents since last year.", bracket: "Correct the mistake / Rewrite", ans: ["They haven't visited their grandparents since last year", "They have not visited their grandparents since last year", "They haven't visited their grandparents since last year."] },
         ];
 
         const generateQuestions = (count, type) => {
             if (type === 'REWRITE') {
-                // Ensure we select 10 unique rewrite questions
                 return [...rewriteTemplates].sort(() => Math.random() - 0.5).slice(0, 10);
             }
             
-            // Multiple Choice / TF questions based on Unit 1 Language (Present Perfect Active & Passive)
+            // Multiple Choice / TF questions based on Unit 1: Who I Am Grammar (Present Perfect Tense)
             const templates = [
-                { text: "He has just _____ his homework.", ans: "finished", wrong: ["finish", "finishes", "finishing"] },
-                { text: "The room has been _____ by my sister.", ans: "cleaned", wrong: ["clean", "cleans", "cleaning"] },
-                { text: "Many tourists have _____ the museum.", ans: "visited", wrong: ["visit", "visiting", "visits"] },
-                { text: "Football has _____ played by them.", ans: "been", wrong: ["be", "being", "was"] },
-                { text: "We have lived in this city _____ 2017.", ans: "since", wrong: ["for", "in", "from"] },
-                { text: "She hasn't washed the dishes _____.", ans: "yet", wrong: ["already", "just", "since"] },
-                { text: "Have you _____ ridden a horse?", ans: "ever", wrong: ["never", "yet", "since"] },
-                { text: "I have _____ seen that movie.", ans: "never", wrong: ["ever", "yet", "since"] },
-                { text: "The Pyramids have been visited _____ many people.", ans: "by", wrong: ["with", "for", "from"] },
-                { text: "She has _____ cleaned the room.", ans: "already", wrong: ["yet", "since", "ever"] },
-                { text: "Have you done your homework _____?", ans: "yet", wrong: ["already", "just", "never"] },
-                { text: "They have _____ to London and came back.", ans: "been", wrong: ["gone", "going", "went"] },
-                { text: "Ali hasn't _____ lunch yet.", ans: "cooked", wrong: ["cook", "cooking", "cooks"] },
-                { text: "Lunch hasn't been _____ yet.", ans: "cooked", wrong: ["cook", "cooking", "cooks"] },
-                { text: "She has lived here _____ 2022.", ans: "since", wrong: ["for", "in", "at"] },
-                { text: "We have been married _____ 50 years.", ans: "for", wrong: ["since", "in", "at"] },
-                { text: "The window has been _____.", ans: "broken", wrong: ["break", "broke", "breaking"] },
-                { text: "_____ you ever eaten falafel?", ans: "Have", wrong: ["Has", "Are", "Did"] },
-                { text: "The car has been repaired _____ the mechanic.", ans: "by", wrong: ["from", "with", "to"] },
-                { text: "I haven't drunk anything _____ two hours.", ans: "for", wrong: ["since", "in", "ago"] },
-                { text: "Salma has _____ watched the film.", ans: "never", wrong: ["ever", "yet", "since"] },
-                { text: "My brother has _____ three new languages.", ans: "learned", wrong: ["learn", "learning", "learns"] },
-                { text: "Have you ever _____ a meal for the family?", ans: "cooked", wrong: ["cook", "cooking", "cooks"] },
-                { text: "They haven't _____ yet.", ans: "met", wrong: ["meet", "meeting", "meets"] },
-                { text: "The board has already been _____.", ans: "cleaned", wrong: ["clean", "cleaning", "cleans"] }
+                { text: "I _____ my homework already.", ans: "have finished", wrong: ["finished", "finish", "am finishing"] },
+                { text: "She _____ to London three times.", ans: "has been", wrong: ["was", "is", "goes"] },
+                { text: "_____ you ever tried Egyptian food?", ans: "Have", wrong: ["Did", "Do", "Are"] },
+                { text: "He has lived here _____ 2015.", ans: "since", wrong: ["for", "from", "at"] },
+                { text: "They have known each other _____ ten years.", ans: "for", wrong: ["since", "during", "in"] },
+                { text: "We have _____ finished our project.", ans: "just", wrong: ["yet", "ago", "since"] },
+                { text: "_____ you ever visited a museum?", ans: "Have", wrong: ["Did", "Do", "Are"] },
+                { text: "She hasn't called me _____.", ans: "yet", wrong: ["already", "ever", "just"] },
+                { text: "I have _____ seen that movie.", ans: "already", wrong: ["yet", "ever", "never"] },
+                { text: "He has _____ been to Japan.", ans: "never", wrong: ["ever", "just", "already"] },
+                { text: "My sister _____ her true identity through art.", ans: "has discovered", wrong: ["discovered", "discovers", "is discovering"] },
+                { text: "_____ they finished the exam yet?", ans: "Have", wrong: ["Did", "Do", "Are"] },
+                { text: "I _____ this book twice.", ans: "have read", wrong: ["read", "reads", "am reading"] },
+                { text: "He _____ his keys. He can't find them.", ans: "has lost", wrong: ["lost", "loses", "is losing"] },
+                { text: "We _____ our grandparents since last year.", ans: "haven't visited", wrong: ["didn't visit", "don't visit", "aren't visiting"] },
+                { text: "How long _____ you lived in Egypt?", ans: "have", wrong: ["did", "do", "are"] },
+                { text: "She _____ her values and beliefs recently.", ans: "has discussed", wrong: ["discussed", "discusses", "is discussing"] },
+                { text: "The students _____ their project yet.", ans: "haven't finished", wrong: ["didn't finish", "don't finish", "aren't finishing"] },
+                { text: "He _____ many life experiences.", ans: "has had", wrong: ["had", "has", "is having"] },
+                { text: "_____ she ever spoken in public?", ans: "Has", wrong: ["Did", "Does", "Is"] },
             ];
 
             const shuffled = [...templates].sort(() => Math.random() - 0.5);
@@ -790,7 +784,8 @@
                 startTargetsGame(qData);
             } else if (currentGameId === 5) {
                 rewriteArea.style.display = 'block';
-                rewriteBracket.innerText = `(${qData.bracket})`;
+                rewriteBracket.innerText = `${qData.q}`;
+                qContainer.style.display = 'none'; // Hide main question text for rewrite
                 rewriteInput.value = '';
                 rewriteInput.disabled = false;
                 rewriteInput.style.borderColor = "#cbd5e1";
@@ -844,7 +839,7 @@
                 playSound('wrong');
                 showFeedbackIcon(false);
                 mistakes.push({
-                    q: qData.q + ` (${qData.bracket})`,
+                    q: qData.q,
                     correct: correctAnsStr
                 });
                 feedbackDiv.innerHTML = `<span style="color: var(--danger);"><i class="fas fa-times"></i> Answer: ${correctAnsStr}</span>`;
