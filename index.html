@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
@@ -513,6 +513,10 @@
                     <i class="fas fa-keyboard"></i>
                     <h3>Correct Sentences</h3>
                 </div>
+                <div class="game-card" onclick="startGame(6)">
+                    <i class="fas fa-pen-fancy"></i>
+                    <h3>Rewrite Sentences</h3>
+                </div>
             </div>
         </div>
 
@@ -537,7 +541,7 @@
 
             <!-- Game 5 Area (Rewrite) -->
             <div id="rewrite-area" style="display: none; text-align: center;">
-                <p class="rewrite-instruction">Rewrite the sentence correcting the word(s) in brackets:</p>
+                <p class="rewrite-instruction" id="rewrite-instruction-text">Rewrite the sentence correcting the word(s) in brackets:</p>
                 <div id="rewrite-bracket" style="font-size: 1.5rem; color: var(--primary); font-weight: bold; margin-bottom: 30px;"></div>
                 <input type="text" id="rewrite-input" placeholder="Type your answer here..." autocomplete="off">
                 <button id="btn-submit-rewrite" class="btn-back" style="background: var(--primary); box-shadow: 0 4px 0 #064e3b; margin: 20px auto; font-size: 1.3rem; padding: 15px 40px;" onclick="submitRewrite()">Submit</button>
@@ -613,11 +617,27 @@
             { q: "They (not visit) their grandparents since last year.", bracket: "Correct the mistake / Rewrite", ans: ["They haven't visited their grandparents since last year", "They have not visited their grandparents since last year", "They haven't visited their grandparents since last year."] },
         ];
 
+        const rewriteSentencesTemplates = [
+            { q: "She has finished her homework.", bracket: "already", ans: ["She has already finished her homework", "She has already finished her homework."] },
+            { q: "I have visited London.", bracket: "never", ans: ["I have never visited London", "I have never visited London."] },
+            { q: "He hasn't finished his project.", bracket: "yet", ans: ["He hasn't finished his project yet", "He has not finished his project yet", "He hasn't finished his project yet."] },
+            { q: "We have finished the exam.", bracket: "just", ans: ["We have just finished the exam", "We have just finished the exam."] },
+            { q: "She hasn't called me.", bracket: "yet", ans: ["She hasn't called me yet", "She has not called me yet", "She hasn't called me yet."] },
+            { q: "I have read this book twice.", bracket: "already", ans: ["I have already read this book twice", "I have already read this book twice."] },
+            { q: "He has lost his keys.", bracket: "just", ans: ["He has just lost his keys", "He has just lost his keys."] },
+            { q: "You have tried Egyptian food.", bracket: "ever - question", ans: ["Have you ever tried Egyptian food?", "Have you ever tried Egyptian food"] },
+            { q: "They haven't visited their grandparents.", bracket: "since last year", ans: ["They haven't visited their grandparents since last year", "They have not visited their grandparents since last year", "They haven't visited their grandparents since last year."] },
+            { q: "She has discovered her true identity.", bracket: "recently", ans: ["She has recently discovered her true identity", "She has discovered her true identity recently", "She has recently discovered her true identity."] },
+        ];
+
         const generateQuestions = (count, type) => {
             if (type === 'REWRITE') {
                 return [...rewriteTemplates].sort(() => Math.random() - 0.5).slice(0, 10);
             }
-            
+            if (type === 'REWRITE_SENT') {
+                return [...rewriteSentencesTemplates].sort(() => Math.random() - 0.5).slice(0, 10);
+            }
+
             // Multiple Choice / TF questions based on Unit 1: Who I Am Grammar (Present Perfect Tense)
             const templates = [
                 { text: "I _____ my homework already.", ans: "have finished", wrong: ["finished", "finish", "am finishing"] },
@@ -736,9 +756,10 @@
             let type = 'MCQ';
             if (gameId === 4) type = 'TF';
             if (gameId === 5) type = 'REWRITE';
-            
+            if (gameId === 6) type = 'REWRITE_SENT';
+
             // Generate 25 questions for MCQ/TF/Games, 10 for Rewrite
-            let qCount = (gameId === 5) ? 10 : 25;
+            let qCount = (gameId === 5 || gameId === 6) ? 10 : 25;
             currentQuestionsList = generateQuestions(qCount, type);
             totalQuestions = currentQuestionsList.length;
             totalQSpan.innerText = totalQuestions;
@@ -782,18 +803,25 @@
             } else if (currentGameId === 3) {
                 targetsArea.style.display = 'block';
                 startTargetsGame(qData);
-            } else if (currentGameId === 5) {
+            } else if (currentGameId === 5 || currentGameId === 6) {
                 rewriteArea.style.display = 'block';
-                rewriteBracket.innerText = `${qData.q}`;
-                qContainer.style.display = 'none'; // Hide main question text for rewrite
+                const instructionEl = document.getElementById('rewrite-instruction-text');
+                if (currentGameId === 5) {
+                    rewriteBracket.innerText = `${qData.q}`;
+                    qContainer.style.display = 'none'; // Hide main question text for rewrite
+                    instructionEl.innerText = 'Rewrite the sentence correcting the word(s) in brackets:';
+                } else {
+                    rewriteBracket.innerText = `(${qData.bracket})`;
+                    instructionEl.innerText = 'Rewrite the sentence using the word in brackets:';
+                }
                 rewriteInput.value = '';
                 rewriteInput.disabled = false;
                 rewriteInput.style.borderColor = "#cbd5e1";
-                
+
                 const submitBtn = document.getElementById('btn-submit-rewrite');
                 submitBtn.disabled = false;
                 submitBtn.style.display = 'inline-block';
-                
+
                 document.getElementById('btn-next-rewrite').style.display = 'none';
                 document.getElementById('rewrite-feedback').innerHTML = '';
                 setTimeout(() => rewriteInput.focus(), 100);
@@ -839,7 +867,7 @@
                 playSound('wrong');
                 showFeedbackIcon(false);
                 mistakes.push({
-                    q: qData.q,
+                    q: (currentGameId === 6) ? `${qData.q} (${qData.bracket})` : qData.q,
                     correct: correctAnsStr
                 });
                 feedbackDiv.innerHTML = `<span style="color: var(--danger);"><i class="fas fa-times"></i> Answer: ${correctAnsStr}</span>`;
